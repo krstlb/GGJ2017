@@ -4,28 +4,20 @@ using UnityEngine;
 
 public class RandomColour : MonoBehaviour {
 	SpriteRenderer spriteRenderer;
-	public float rValue;
-	public float gValue;
-	public float bValue;
+	float rValue,gValue,bValue;
 
-	// Use this for initialization
-	void Start () {
-		spriteRenderer = GetComponent<SpriteRenderer> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		rValue = Random.Range(0f, 255f);
+	void Start(){
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
+		rValue = Random.Range(0f, 0.2f);
+		gValue = Random.Range(0f, 0.6f);
+		bValue = Random.Range(0.2f, 1f);
 		changeColor(rValue, gValue, bValue);
 	}
 
 	void changeColor(float r, float g, float b) {
 		
 		Color tempColor;
-		tempColor = spriteRenderer.color;
-		tempColor.r -= rValue * Time.deltaTime;
-		tempColor.g -= gValue * Time.deltaTime;
-		tempColor.b -= bValue * Time.deltaTime;
+		tempColor = new Color (rValue, gValue, bValue);
 		spriteRenderer.color = tempColor;
 	}
 }
