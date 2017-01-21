@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grow : MonoBehaviour {
-	private const float InitScale = 1f;
+	private const float InitScale = 0.02f;
 	private float _currentScale = InitScale;
 	public const float TargetScale = 3f;
 	private const int FramesCount = 100;
