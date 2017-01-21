@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Fade : MonoBehaviour {
 
-	SpriteRenderer spriteRenderer;
+	private SpriteRenderer spriteRenderer;
 	public float fade;
 	// Use this for initialization
 	void Start () {
-		spriteRenderer = GetComponent<SpriteRenderer> ();
+		spriteRenderer = gameObject.transform.GetComponent<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -17,5 +17,9 @@ public class Fade : MonoBehaviour {
 		tempColor = spriteRenderer.color;
 		tempColor.a -= fade * Time.deltaTime;
 		spriteRenderer.color = tempColor;
+
+		if (tempColor.a <= 0) {
+			Destroy (gameObject);
+		}
 	}
 }
