@@ -71,7 +71,7 @@ public class GazePlotter : MonoBehaviour
 		 */
 		if (eyeTracking) {
 			InvokeRepeating (
-				"spawnWave", 1f, 1f
+				"spawnWave", 1.2f, 1.025f
 			);
 		} 
 		if(!eyeTracking) {
