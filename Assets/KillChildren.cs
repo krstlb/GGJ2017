@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class KillChildren : MonoBehaviour {
 
 	private GameObject sliderObject;
+	public GameObject particleEffect;
 	private Slider slider;
 	public float maxLifetime;
 
@@ -13,10 +14,15 @@ public class KillChildren : MonoBehaviour {
 	void Start(){
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		slider = sliderObject.GetComponent<Slider> ();
-		Destroy (gameObject, maxLifetime);
+		StartCoroutine(DestroyChildAndInstantiateParticleEffect());
 	}
 
-
+	IEnumerator DestroyChildAndInstantiateParticleEffect() {
+		Destroy (gameObject, maxLifetime);
+		yield return new WaitForSeconds (19.6f);
+		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
+		slider.value -= 0.1f;
+	}
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "DeadZone") {
