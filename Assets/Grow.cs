@@ -19,7 +19,7 @@ public class Grow : MonoBehaviour {
 		}
 	}
 
-	private void Start() {
+	private void Awake() {
 		StartCoroutine (GrowScale ());
 	}
 }
