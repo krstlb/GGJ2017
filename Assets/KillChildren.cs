@@ -21,7 +21,7 @@ public class KillChildren : MonoBehaviour {
 			slider.value -= 0.02f;
 		} else if (other.tag == "SafeZone") {
 			Destroy (this.gameObject);
-			slider.value += 0.02f;
+			slider.value += 0.5f;
 		}
 	}
 }
