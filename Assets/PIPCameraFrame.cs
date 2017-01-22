@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Tobii.EyeTracking;
+using UnityEngine.SceneManagement;
 
 public class PIPCameraFrame : MonoBehaviour {
 	//public GameObject PIPImageObj;
@@ -18,15 +19,21 @@ public class PIPCameraFrame : MonoBehaviour {
 
     public Collider2D videoFrameFadeoutTriggerCollider;
     public Collider2D aimingPointCollider;
-
-
+    WebCamTexture webcamTexture;
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     // Use this for initialization
     void Start () {
        
        rawImage = gameObject.GetComponent<RawImage>();
 
-		WebCamTexture webcamTexture = new WebCamTexture ();
+	   webcamTexture = new WebCamTexture ();
+        
+
+
 		rawImage.texture = webcamTexture;
 		rawImage.uvRect = new Rect (0.65f, 0.37f, -0.17f, 0.13f);
 		rawImage.material.mainTexture = webcamTexture;
@@ -41,8 +48,20 @@ public class PIPCameraFrame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
 
+        if (Input.GetKey(KeyCode.R))
+        {
+
+            while (webcamTexture != null && webcamTexture.isPlaying)
+            {
+                Debug.Log("is still playing");
+                webcamTexture.Stop();
+                webcamTexture = null;
+                break;
+            }
+
+            SceneManager.LoadScene(0);
+        }
 
         LoadProfileNameWhenTheTrackerIsReady();
         videoFrameFadeContral();

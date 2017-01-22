@@ -47,8 +47,17 @@ public class GazePlotter : MonoBehaviour
         set { _useFilter = value; }
     }
 
+   
+
+
+
     void Start()
     {
+
+
+ 
+       
+
         InitializeGazePointBuffer();
         InitializeGazePointCloudSprites();
 
@@ -82,9 +91,12 @@ public class GazePlotter : MonoBehaviour
 			}
 		}
 
-		if(Input.GetKey(KeyCode.R)){
-			SceneManager.LoadScene(0);
-		}
+		//if(Input.GetKey(KeyCode.R)){
+
+
+
+		//	SceneManager.LoadScene(0);
+		//}
 
         gazePoint = EyeTracking.GetGazePoint();
 		if (eyeTracking) {
