@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Tobii.EyeTracking;
 using UnityEngine;
+using UnityEngine.Windows;
 
 /// <summary>
 /// Draws the gaze point positions as a point cloud, or, if the use filtering
@@ -38,6 +39,7 @@ public class GazePlotter : MonoBehaviour
     private bool            _hasHistoricPoint;
     private Vector3         _historicPoint;
 
+	public bool eyeTracking;
     public bool UseFilter
     {
         get { return _useFilter; }
@@ -57,28 +59,38 @@ public class GazePlotter : MonoBehaviour
 		/*************
 		 * me did this
 		 */
+		if (eyeTracking) {
+			InvokeRepeating (
+				"spawnWave", 1f, 1f
+			);
+		} 
+		if(!eyeTracking) {
+			_gazeBubbleRenderer.enabled = false;
+			GetComponent<CircleCollider2D> ().enabled = false;
+		}
 
-		InvokeRepeating (
-			"spawnWave", 1f,1f
-		);
 
 		/***end of me do*/
     }
 
     void Update()
     {
+		if (Input.GetButtonDown ("Fire1")) {
+			spawnWaveAtTap ();
+		}
+
         gazePoint = EyeTracking.GetGazePoint();
+		if (eyeTracking) {
+			if (gazePoint.SequentialId > _lastGazePoint.SequentialId &&
+			         gazePoint.IsWithinScreenBounds) {
+				UpdateGazeBubblePosition (gazePoint);
 
-        if (gazePoint.SequentialId > _lastGazePoint.SequentialId &&
-            gazePoint.IsWithinScreenBounds)
-        {
-            UpdateGazeBubblePosition(gazePoint);
-
-            _lastGazePoint = gazePoint;
-        }
+				_lastGazePoint = gazePoint;
+			}
 			
-        UpdateGazePointCloudVisibility();
-        UpdateGazeBubbleVisibility(); 
+			UpdateGazePointCloudVisibility ();
+			UpdateGazeBubbleVisibility (); 
+		}
     }
 
     private void InitializeGazePointBuffer()
@@ -91,9 +103,15 @@ public class GazePlotter : MonoBehaviour
     }
 
 	//Me do
-	public void spawnWave(){
+	private void spawnWave(){
 		Transform transform = GameObject.FindGameObjectWithTag ("GazePoint").transform;
 		GameObject newWave = Instantiate (wave, transform.position, Quaternion.identity) as GameObject;
+	}
+
+	private void spawnWaveAtTap(){
+		Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		position.z = 0;
+		GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
 	}
 
     private void InitializeGazePointCloudSprites()
