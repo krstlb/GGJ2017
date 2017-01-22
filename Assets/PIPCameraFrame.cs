@@ -16,13 +16,10 @@ public class PIPCameraFrame : MonoBehaviour {
 
     bool isProfileNameLoaded = false;
 
-    private Collider2D currentCollider;
+    public Collider2D videoFrameFadeoutTriggerCollider;
     public Collider2D aimingPointCollider;
 
-    void Awake()
-    {
-        currentCollider = GetComponent<Collider2D>();
-    }
+
 
     // Use this for initialization
     void Start () {
@@ -53,7 +50,7 @@ public class PIPCameraFrame : MonoBehaviour {
 	}
 
     void videoFrameFadeContral() {
-        if (currentCollider.IsTouching(aimingPointCollider))
+        if (videoFrameFadeoutTriggerCollider.IsTouching(aimingPointCollider))
         {
             Debug.Log("Touching!!");
 
@@ -92,6 +89,9 @@ public class PIPCameraFrame : MonoBehaviour {
         }
 
     }
+
+
+
 
   
 
