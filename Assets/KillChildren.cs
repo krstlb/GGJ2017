@@ -13,24 +13,31 @@ public class KillChildren : MonoBehaviour {
 
 	void Start(){
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
-		slider = sliderObject.GetComponent<Slider> ();
+		if(sliderObject!=null){
+			slider = sliderObject.GetComponent<Slider> ();
+		}
 		StartCoroutine(DestroyChildAndInstantiateParticleEffect());
 	}
 
 	IEnumerator DestroyChildAndInstantiateParticleEffect() {
 		Destroy (gameObject, maxLifetime);
-		yield return new WaitForSeconds (19.6f);
-		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
+		Vector3 tempPos = gameObject.transform.position;
+		yield return new WaitForSeconds (20f);
+		Instantiate (particleEffect, tempPos, Quaternion.identity);
 		slider.value -= 0.1f;
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "DeadZone") {
 			Destroy (this.gameObject);
-			slider.value -= 0.1f;
+			if (slider != null) {
+				slider.value -= 0.1f;
+			}
 		} else if (other.tag == "SafeZone") {
 			Destroy (this.gameObject);
-			slider.value += 0.1f;
+			if (slider != null) {
+				slider.value += 0.1f;
+			}
 		}
 	}
 }

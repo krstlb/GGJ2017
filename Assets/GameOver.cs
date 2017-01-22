@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
 	Slider mainSlider;
@@ -31,20 +30,13 @@ public class GameOver : MonoBehaviour {
 		Color tempColor = winText.GetComponent<Text> ().color;
 		tempColor.a = 1.0f;
 		winText.GetComponent<Text> ().color = tempColor;
-		mainSlider.enabled = false;
+		mainSlider.gameObject.SetActive(false);
 	}
 
 	void lose(){
 		Color tempColor = winText.GetComponent<Text> ().color;
 		tempColor.a = 1.0f;
 		loseText.GetComponent<Text> ().color = tempColor;
-		mainSlider.enabled = false;
-	}
-
-	// Update is called once per frame
-	void Update () {
-		if(Input.GetKey(KeyCode.R)){
-			SceneManager.LoadScene(0);
-		}
+		mainSlider.gameObject.SetActive(false);
 	}
 }

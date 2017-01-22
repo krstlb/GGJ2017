@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Tobii.EyeTracking;
 using UnityEngine;
 using UnityEngine.Windows;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Draws the gaze point positions as a point cloud, or, if the use filtering
@@ -75,8 +76,14 @@ public class GazePlotter : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetButtonDown ("Fire1")) {
-			spawnWaveAtTap ();
+		if (!eyeTracking) {
+			if (Input.GetButtonDown ("Fire1")) {
+				spawnWaveAtTap ();
+			}
+		}
+
+		if(Input.GetKey(KeyCode.R)){
+			SceneManager.LoadScene(0);
 		}
 
         gazePoint = EyeTracking.GetGazePoint();
