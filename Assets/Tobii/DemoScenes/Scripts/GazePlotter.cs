@@ -89,8 +89,14 @@ public class GazePlotter : MonoBehaviour
 			if (Input.GetButtonDown ("Fire1")) {
 				spawnWaveAtTap ();
 			}
+		} else {
+			if (Input.GetKeyDown ("1")) {
+				gameObject.GetComponent<SpriteRenderer> ().color = new Color (214, 214, 214);
+			}
+			if (Input.GetKeyDown ("2")) {
+				gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
+			}
 		}
-
 		//if(Input.GetKey(KeyCode.R)){
 
 
