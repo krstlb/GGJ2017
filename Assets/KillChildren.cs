@@ -21,9 +21,8 @@ public class KillChildren : MonoBehaviour {
 
 	IEnumerator DestroyChildAndInstantiateParticleEffect() {
 		Destroy (gameObject, maxLifetime);
-		Vector3 tempPos = gameObject.transform.position;
-		yield return new WaitForSeconds (20f);
-		Instantiate (particleEffect, tempPos, Quaternion.identity);
+		yield return new WaitForSeconds (19.6f);
+		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
 		slider.value -= 0.1f;
 	}
 

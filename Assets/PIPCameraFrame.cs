@@ -54,7 +54,7 @@ public class PIPCameraFrame : MonoBehaviour {
         {
             Debug.Log("Touching!!");
 
-            rawImage.CrossFadeAlpha(0.5f, speedForFading, false);
+            rawImage.CrossFadeAlpha(0.05f, speedForFading, false);
         }
         else
         {
