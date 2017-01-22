@@ -9,11 +9,14 @@ public class KillChildren : MonoBehaviour {
 	private Slider slider;
 	public float maxLifetime;
 
+
 	void Start(){
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		slider = sliderObject.GetComponent<Slider> ();
 		Destroy (gameObject, maxLifetime);
 	}
+
+
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "DeadZone") {

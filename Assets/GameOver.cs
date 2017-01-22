@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
 	Slider mainSlider;
+
+	public GameObject winText;
+	public GameObject loseText;
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +21,30 @@ public class GameOver : MonoBehaviour {
 
 	public void ValueChangeCheck() {
 		if (mainSlider.value <= 0) {
-			print ("You lose");
+			lose ();
 		} else if (mainSlider.value >= 1) {
-			print ("You win");
+			win ();
 		}
 	}
-	
+
+	void win(){
+		Color tempColor = winText.GetComponent<Text> ().color;
+		tempColor.a = 1.0f;
+		winText.GetComponent<Text> ().color = tempColor;
+		mainSlider.enabled = false;
+	}
+
+	void lose(){
+		Color tempColor = winText.GetComponent<Text> ().color;
+		tempColor.a = 1.0f;
+		loseText.GetComponent<Text> ().color = tempColor;
+		mainSlider.enabled = false;
+	}
+
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKey(KeyCode.Space)){
+			SceneManager.LoadScene(0);
+		}
 	}
 }
