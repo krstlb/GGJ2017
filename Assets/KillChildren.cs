@@ -11,10 +11,12 @@ public class KillChildren : MonoBehaviour {
 	public float maxLifetime;
 	AudioSource audioSource;
 	AudioSource audioSourceKidsCheering;
+	public AudioClip[] dyingChildrenSounds;
 
 	void Start(){
 		audioSource = GetComponent<AudioSource> ();
 		audioSourceKidsCheering = GameObject.FindGameObjectWithTag ("Ocean").GetComponent<AudioSource>();
+
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		if(sliderObject!=null){
 			slider = sliderObject.GetComponent<Slider> ();

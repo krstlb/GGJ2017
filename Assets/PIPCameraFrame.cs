@@ -20,6 +20,11 @@ public class PIPCameraFrame : MonoBehaviour {
     public Collider2D videoFrameFadeoutTriggerCollider;
     public Collider2D aimingPointCollider;
     WebCamTexture webcamTexture;
+
+	Color visibleColor;
+	Color invisibleColor;
+
+	public bool visible = false;
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -40,28 +45,40 @@ public class PIPCameraFrame : MonoBehaviour {
 
    //     rawImage.CrossFadeAlpha(0.5f, 5f, false);
 
-
+		visibleColor = rawImage.color;
+		invisibleColor = new Color (0, 0, 0, 0);
 
 		webcamTexture.Play ();
         
+		if (!visible) {
+			rawImage.color = invisibleColor;
+		}
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKey(KeyCode.R))
-        {
+		if (Input.GetKey(KeyCode.R))
+		{
 
-            while (webcamTexture != null && webcamTexture.isPlaying)
-            {
-                Debug.Log("is still playing");
-                webcamTexture.Stop();
-                webcamTexture = null;
-                break;
-            }
+			while (webcamTexture != null && webcamTexture.isPlaying)
+			{
+				Debug.Log("is still playing");
+				webcamTexture.Stop();
+				webcamTexture = null;
+				break;
+			}
 
-            SceneManager.LoadScene(0);
-        }
+			SceneManager.LoadScene(0);
+		}
+
+		if (Input.GetKeyUp (KeyCode.C)) {
+			if (rawImage.color.a == 0) {
+				rawImage.color = visibleColor;
+			} else {
+				rawImage.color = invisibleColor;
+			}
+		}
 
         LoadProfileNameWhenTheTrackerIsReady();
         videoFrameFadeContral();
@@ -92,19 +109,19 @@ public class PIPCameraFrame : MonoBehaviour {
 
         if (!isProfileNameLoaded)
         {
+			if (GameObject.FindGameObjectWithTag ("PlayerInfoText") != null) {
+				playerInfoText = GameObject.FindGameObjectWithTag ("PlayerInfoText").GetComponent<Text> ();
+			
 
-            playerInfoText = GameObject.Find("PlayerInfoText").GetComponent<Text>();
+				currentUserName = EyeTrackingHost.GetInstance ().UserProfileName.ToString ();
 
 
-            currentUserName = EyeTrackingHost.GetInstance().UserProfileName.ToString();
+				playerInfoText.text = "Player: " + currentUserName;
 
+				if (currentUserName != "INVALID")
+					isProfileNameLoaded = true;
 
-
-            playerInfoText.text = "Player: " + currentUserName;
-
-            if (currentUserName != "INVALID")
-                isProfileNameLoaded = true;
-
+			}
         }
 
     }

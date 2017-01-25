@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChildrenSpawn : MonoBehaviour {
 
 	public GameObject childPrefab;
+	public GameObject turtlePrefab;
 	public int xMin,xMax,yMin,yMax;
 
 
@@ -12,9 +13,8 @@ public class ChildrenSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating (
-			"spawnChild", 1f,2f
-		);
+		InvokeRepeating ("spawnChild", 1f,2f);
+		InvokeRepeating ("spawnTurtle", 3f, 2f);
 	}
 	
 	// Update is called once per frame
@@ -25,4 +25,8 @@ public class ChildrenSpawn : MonoBehaviour {
 	void spawnChild(){
 		Instantiate(childPrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
 	}
+	void spawnTurtle(){
+		Instantiate(turtlePrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
+	}
+
 }
