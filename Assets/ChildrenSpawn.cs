@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChildrenSpawn : MonoBehaviour {
-
-	public GameObject childPrefab;
 	public GameObject turtlePrefab;
 	public GameObject bubbles;
 	public GameObject algae;
 	public int xMin,xMax,yMin,yMax;
-
-
-
 
 	// Use this for initialization
 	void Start () {
@@ -32,9 +27,6 @@ public class ChildrenSpawn : MonoBehaviour {
 		}
 	}
 
-	void spawnChild(){
-		Instantiate(childPrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
-	}
 	void spawnTurtle(){
 		Instantiate(turtlePrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
 	}
