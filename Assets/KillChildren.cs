@@ -7,10 +7,13 @@ public class KillChildren : MonoBehaviour {
 
 	private GameObject sliderObject;
 	public GameObject particleEffect;
+	private GameObject cheerGameObject;
 	private Slider slider;
 	public float maxLifetime;
 	AudioSource audioSource;
+	AudioSource cheerAudioSource;
 	AudioClip[] audioClips;
+	AudioClip audioClipCheer;
 
 	void Start(){
 		audioSource = GetComponent<AudioSource> ();
@@ -23,7 +26,8 @@ public class KillChildren : MonoBehaviour {
 			(AudioClip)Resources.Load ("Sound/dying6"),
 			(AudioClip)Resources.Load ("Sound/dying7")
 		};
-			
+		audioClipCheer = (AudioClip)Resources.Load ("Sound/cheer");
+
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		if(sliderObject!=null){
 			slider = sliderObject.GetComponent<Slider> ();
@@ -33,7 +37,6 @@ public class KillChildren : MonoBehaviour {
 	}
 
 	IEnumerator DestroyChildAndInstantiateParticleEffect() {
-		print ("asfd");
 		Destroy (gameObject, maxLifetime);
 		yield return new WaitForSeconds (11.5f);
 		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
@@ -59,9 +62,12 @@ public class KillChildren : MonoBehaviour {
 			}
 
 		} else if (other.tag == "SafeZone") {
-			audioSource.clip = (AudioClip)Resources.Load ("Sound/cheer");
-			audioSource.Stop ();
-			audioSource.Play ();
+			cheerGameObject = new GameObject ("CheerGameObject");
+			cheerGameObject.AddComponent<AudioSource> ();
+			cheerAudioSource = cheerGameObject.GetComponent<AudioSource>();
+			cheerAudioSource.clip = audioClipCheer;
+			cheerAudioSource.Stop ();
+			cheerAudioSource.Play ();
 
 			Destroy (this.gameObject);
 			if (slider != null) {
