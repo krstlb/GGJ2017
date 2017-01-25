@@ -47,10 +47,6 @@ public class GazePlotter : MonoBehaviour
         set { _useFilter = value; }
     }
 
-   
-
-
-
     void Start()
     {
         InitializeGazePointBuffer();
@@ -61,9 +57,16 @@ public class GazePlotter : MonoBehaviour
         _gazeBubbleRenderer = GetComponent<SpriteRenderer>();
         UpdateGazeBubbleVisibility();
 
-		/*************
+		/**
 		 * me did this
 		 */
+		ToggleEyeTracking ();
+		/**
+		 * end of me do
+		*/
+    }
+
+	void ToggleEyeTracking() {
 		if (eyeTracking) {
 			InvokeRepeating (
 				"spawnWave", 1.2f, 0.8f
@@ -72,14 +75,17 @@ public class GazePlotter : MonoBehaviour
 		if(!eyeTracking) {
 			_gazeBubbleRenderer.enabled = false;
 			GetComponent<CircleCollider2D> ().enabled = false;
+			CancelInvoke ();
 		}
-
-
-		/***end of me do*/
-    }
+	}
 
     void Update()
     {
+		if (Input.GetKeyUp(KeyCode.E)){
+			eyeTracking = !eyeTracking;	
+			ToggleEyeTracking ();
+		}
+
 		if (!eyeTracking) {
 			if (Input.GetButtonDown ("Fire1")) {
 				spawnWaveAtTap ();
@@ -91,16 +97,10 @@ public class GazePlotter : MonoBehaviour
 			if (Input.GetKeyDown ("2")) {
 				gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 			}
-		}
-		//if(Input.GetKey(KeyCode.R)){
+		} 
 
-
-
-		//	SceneManager.LoadScene(0);
-		//}
-
-        gazePoint = EyeTracking.GetGazePoint();
 		if (eyeTracking) {
+			gazePoint = EyeTracking.GetGazePoint();
 			if (gazePoint.SequentialId > _lastGazePoint.SequentialId &&
 			         gazePoint.IsWithinScreenBounds) {
 				UpdateGazeBubblePosition (gazePoint);
@@ -131,7 +131,7 @@ public class GazePlotter : MonoBehaviour
 	private void spawnWaveAtTap(){
 		Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		position.z = 0;
-	    //GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
+	    GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
 	}
 
     private void InitializeGazePointCloudSprites()

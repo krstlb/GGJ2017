@@ -19,6 +19,6 @@ public class StartGame : MonoBehaviour {
 	}
 
 	void Play() {
-		SceneManager. LoadScene("GGJ2017");
+		SceneManager. LoadScene("Scenes/GGJ2017");
 	}
 }

@@ -10,7 +10,7 @@ public class ChildrenSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("Spawn", 1f,2f);
+		InvokeRepeating ("Spawn", 1f,3f);
 	}
 	
 	// Update is called once per frame
