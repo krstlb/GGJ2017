@@ -13,13 +13,20 @@ public class ChildrenSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("spawnChild", 1f,2f);
-		InvokeRepeating ("spawnTurtle", 3f, 2f);
+		InvokeRepeating ("spawn", 1f,2f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void spawn(){
+		if (Random.value < 0.5f) {
+			spawnChild ();
+		} else {
+			spawnTurtle ();
+		}
 	}
 
 	void spawnChild(){
