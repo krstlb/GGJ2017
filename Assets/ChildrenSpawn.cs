@@ -6,6 +6,8 @@ public class ChildrenSpawn : MonoBehaviour {
 
 	public GameObject childPrefab;
 	public GameObject turtlePrefab;
+	public GameObject bubbles;
+	public GameObject algae;
 	public int xMin,xMax,yMin,yMax;
 
 
@@ -13,7 +15,7 @@ public class ChildrenSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("spawn", 1f,2f);
+		InvokeRepeating ("Spawn", 1f,2f);
 	}
 	
 	// Update is called once per frame
@@ -21,11 +23,12 @@ public class ChildrenSpawn : MonoBehaviour {
 		
 	}
 
-	void spawn(){
+	void Spawn(){
+		
 		if (Random.value < 0.5f) {
-			spawnChild ();
+			SpawnBubbles ();
 		} else {
-			spawnTurtle ();
+			SpawnAlgae ();
 		}
 	}
 
@@ -36,4 +39,11 @@ public class ChildrenSpawn : MonoBehaviour {
 		Instantiate(turtlePrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
 	}
 
+	void SpawnBubbles() {
+		Instantiate (bubbles, new Vector3 (Random.Range (xMin, xMax), Random.Range (yMin, yMax), 0), Quaternion.identity);
+	}
+
+	void SpawnAlgae() {
+		Instantiate (algae, new Vector3 (Random.Range (xMin, xMax), Random.Range (yMin, yMax), 0), Quaternion.identity);
+	}
 }
