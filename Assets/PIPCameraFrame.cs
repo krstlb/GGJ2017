@@ -47,8 +47,7 @@ public class PIPCameraFrame : MonoBehaviour {
 
 		visibleColor = rawImage.color;
 		invisibleColor = new Color (0, 0, 0, 0);
-
-		webcamTexture.Play ();
+		//webcamTexture.Play ();
         
 		if (!visible) {
 			rawImage.color = invisibleColor;
