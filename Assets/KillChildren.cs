@@ -46,7 +46,7 @@ public class KillChildren : MonoBehaviour {
 		audioSource.Play ();
 
 		if (slider!=null) {
-			slider.value -= 0.1f;
+			slider.value -= 0.05f;
 		}
 	}
 

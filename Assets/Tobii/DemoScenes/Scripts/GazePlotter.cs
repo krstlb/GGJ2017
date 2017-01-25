@@ -53,11 +53,6 @@ public class GazePlotter : MonoBehaviour
 
     void Start()
     {
-
-
- 
-       
-
         InitializeGazePointBuffer();
         InitializeGazePointCloudSprites();
 
@@ -71,7 +66,7 @@ public class GazePlotter : MonoBehaviour
 		 */
 		if (eyeTracking) {
 			InvokeRepeating (
-				"spawnWave", 1.2f, 1.025f
+				"spawnWave", 1.2f, 0.65f
 			);
 		} 
 		if(!eyeTracking) {
@@ -129,14 +124,14 @@ public class GazePlotter : MonoBehaviour
 
 	//Me do
 	private void spawnWave(){
-		Transform transform = GameObject.FindGameObjectWithTag ("GazePoint").transform;
+		//Transform transform = GameObject.FindGameObjectWithTag ("GazePoint").transform;
 		GameObject newWave = Instantiate (wave, transform.position, Quaternion.identity) as GameObject;
 	}
 
 	private void spawnWaveAtTap(){
 		Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		position.z = 0;
-		GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
+	    //GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
 	}
 
     private void InitializeGazePointCloudSprites()

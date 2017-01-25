@@ -6,8 +6,8 @@ public class Grow : MonoBehaviour {
 	private const float InitScale = 0.02f;
 	private float _currentScale = InitScale;
 	public const float TargetScale = 3f;
-	private const int FramesCount = 1500;
-	private const float AnimationTimeSeconds = 15;
+	private const int FramesCount = 1000;
+	private const float AnimationTimeSeconds = 10;
 	private float _deltaTime = AnimationTimeSeconds/FramesCount;
 	private float _dx = (TargetScale - InitScale)/FramesCount;
 
