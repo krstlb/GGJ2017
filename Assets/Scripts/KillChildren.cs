@@ -14,6 +14,7 @@ public class KillChildren : MonoBehaviour {
 	AudioSource cheerAudioSource;
 	AudioClip[] audioClips;
 	AudioClip audioClipCheer;
+	private const float SLIDER_VALUE = 0.05f;
 
 	void Start(){
 		audioSource = GetComponent<AudioSource> ();
@@ -33,12 +34,12 @@ public class KillChildren : MonoBehaviour {
 			slider = sliderObject.GetComponent<Slider> ();
 		}
 
-		StartCoroutine(DestroyChildAndInstantiateParticleEffect());
+		StartCoroutine(DestroyChildAndInstantiateParticleEffect(11.5f));
 	}
 
-	IEnumerator DestroyChildAndInstantiateParticleEffect() {
+	IEnumerator DestroyChildAndInstantiateParticleEffect(float secondsWait) {
 		Destroy (gameObject, maxLifetime);
-		yield return new WaitForSeconds (11.5f);
+		yield return new WaitForSeconds (secondsWait);
 		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
 
 		audioSource.clip = audioClips [Random.Range (0, audioClips.Length)];
@@ -46,22 +47,20 @@ public class KillChildren : MonoBehaviour {
 		audioSource.Play ();
 
 		if (slider!=null) {
-			slider.value -= 0.05f;
+			slider.value -= SLIDER_VALUE;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "DeadZone") {
-			audioSource.clip = audioClips [Random.Range (0, audioClips.Length)];
-			audioSource.Stop ();
-			audioSource.Play ();
+		// dying
+		if ((other.tag == "DeadZone" && this.tag == "Child") || 
+			(other.tag == "SafeZone" && this.tag == "Turtle")) {
 
-			Destroy (this.gameObject);
-			if (slider != null) {
-				slider.value -= 0.1f;
-			}
+			StartCoroutine (DestroyChildAndInstantiateParticleEffect (0.01f));
+		// cheering
+		} else if ((other.tag == "SafeZone" && this.tag == "Child") || 
+			(other.tag == "DeadZone" && this.tag == "Turtle")) {
 
-		} else if (other.tag == "SafeZone") {
 			cheerGameObject = new GameObject ("CheerGameObject");
 			cheerGameObject.AddComponent<AudioSource> ();
 			cheerAudioSource = cheerGameObject.GetComponent<AudioSource>();
@@ -71,7 +70,7 @@ public class KillChildren : MonoBehaviour {
 
 			Destroy (this.gameObject);
 			if (slider != null) {
-				slider.value += 0.1f;
+				slider.value += SLIDER_VALUE;
 			}
 		}
 	}
