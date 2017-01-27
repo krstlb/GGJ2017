@@ -27,10 +27,6 @@ public class ChildrenSpawn : MonoBehaviour {
 		}
 	}
 
-	void spawnTurtle(){
-		Instantiate(turtlePrefab, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin,yMax), 0), Quaternion.identity);
-	}
-
 	void SpawnBubbles() {
 		Instantiate (bubbles, new Vector3 (Random.Range (xMin, xMax), Random.Range (yMin, yMax), 0), Quaternion.identity);
 	}
