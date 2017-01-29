@@ -27,7 +27,7 @@ public class PIPCameraFrame : MonoBehaviour {
 	public bool visible = false;
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
     }
 
     // Use this for initialization
@@ -91,13 +91,12 @@ public class PIPCameraFrame : MonoBehaviour {
     void videoFrameFadeContral() {
         if (videoFrameFadeoutTriggerCollider.IsTouching(aimingPointCollider))
         {
-            Debug.Log("Touching!!");
 
             rawImage.CrossFadeAlpha(0.05f, speedForFading, false);
         }
         else
         {
-            Debug.Log("not touching!");
+            
 
             rawImage.CrossFadeAlpha(1f, speedForFading, false);
 

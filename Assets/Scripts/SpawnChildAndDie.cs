@@ -17,7 +17,7 @@ public class SpawnChildAndDie : MonoBehaviour {
 
 	IEnumerator SpawnAndDie() {
 		yield return new WaitForSeconds(2f);
-		Instantiate (child, this.gameObject.transform.position, Quaternion.identity);
+		Instantiate (child, gameObject.transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
 }

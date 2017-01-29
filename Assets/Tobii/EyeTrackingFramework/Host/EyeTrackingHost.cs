@@ -426,7 +426,7 @@ namespace Tobii.EyeTracking
                 _context.ConnectionStateChanged += OnConnectionStateChanged;
                 _context.EnableConnection();
 
-                print("Tobii EyeTracking is running.");
+                //print("Tobii EyeTracking is running.");
             }
             catch (InteractionApiException ex)
             {

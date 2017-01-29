@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 /// toggle is on, with a single bubble sprite with smoother movements.
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
-public class GazePlotter : MonoBehaviour
+public class GazePlotter : MonoBehaviour, AudioProcessor.AudioCallbacks
 {
     [Range(3.0f, 15.0f), Tooltip("Number of gaze points in point cloud.")]
     public int PointCloudSize = 10;
@@ -47,8 +47,12 @@ public class GazePlotter : MonoBehaviour
         set { _useFilter = value; }
     }
 
+	float lastTime;
+
     void Start()
     {
+		lastTime = Time.time;
+
         InitializeGazePointBuffer();
         InitializeGazePointCloudSprites();
 
@@ -64,19 +68,28 @@ public class GazePlotter : MonoBehaviour
 		/**
 		 * end of me do
 		*/
+
+
+		AudioProcessor processor = FindObjectOfType<AudioProcessor>();
+		processor.addAudioCallback(this);
     }
 
 	void ToggleEyeTracking() {
 		if (eyeTracking) {
-			InvokeRepeating (
-				"spawnWave", 1.2f, 0.8f
-			);
+			//InvokeRepeating (
+			//	"spawnWave", 1.2f, 0.8f
+			//);
 		} 
 		if(!eyeTracking) {
 			_gazeBubbleRenderer.enabled = false;
 			GetComponent<CircleCollider2D> ().enabled = false;
 			CancelInvoke ();
 		}
+	}
+
+	public void onOnbeatDetected()
+	{
+		spawnWave ();
 	}
 
     void Update()
@@ -124,6 +137,9 @@ public class GazePlotter : MonoBehaviour
 
 	//Me do
 	private void spawnWave(){
+		
+		print (Time.time - lastTime);
+		lastTime = Time.time;
 		//Transform transform = GameObject.FindGameObjectWithTag ("GazePoint").transform;
 		GameObject newWave = Instantiate (wave, transform.position, Quaternion.identity) as GameObject;
 	}
@@ -223,4 +239,9 @@ public class GazePlotter : MonoBehaviour
 
         return smoothedPoint;
     }
+
+	public void onSpectrum(float[] spectrum)
+	{
+		
+	}
 }
