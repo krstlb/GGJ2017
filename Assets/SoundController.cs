@@ -47,6 +47,7 @@ public class SoundController : MonoBehaviour {
 		AudioSource musicAudioSource = transform.GetComponentInChildren<AudioSource> ();
 		musicAudioSource.clip = audio;
 		musicAudioSource.volume = defaultMusicVolume;
+		musicAudioSource.loop = true;
 		musicAudioSource.Play ();
 	}
 
