@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour {
 
-	public AudioClip backgroundMusic;
+	private GameObject musicController;
 	public AudioClip cheer;
 	public AudioClip splash;
 	public AudioClip seagulls;
 	public AudioClip waves;
+	public AudioClip music;
 
 	public AudioClip[] victimDeathSounds;
 
@@ -24,18 +25,12 @@ public class SoundController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audioSource = GetComponent<AudioSource> ();
-		PlayBackgroundMusic ();
+		PlayMusic (music);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		PlayWavesRandomly ();
-	}
-
-	public void PlayBackgroundMusic(){
-		audioSource.loop = true;
-		audioSource.clip = backgroundMusic;
-		audioSource.Play ();
 	}
 
 	public void PlayOneShot(AudioClip audio){
@@ -44,6 +39,14 @@ public class SoundController : MonoBehaviour {
 
 	public void PlayOneShot(AudioClip[] audios){
 		audioSource.PlayOneShot(audios[Random.Range(0,audios.Length)]);
+	}
+
+
+	public void PlayMusic(AudioClip audio){
+		AudioSource musicAudioSource = transform.GetComponentInChildren<AudioSource> ();
+		musicAudioSource.clip = audio;
+		musicAudioSource.volume = 0.1f;
+		musicAudioSource.Play ();
 	}
 
 	void PlayWavesRandomly() {

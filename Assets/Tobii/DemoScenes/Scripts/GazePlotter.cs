@@ -47,12 +47,9 @@ public class GazePlotter : MonoBehaviour
         set { _useFilter = value; }
     }
 
-	float lastTime;
 
     void Start()
     {
-		lastTime = Time.time;
-
         InitializeGazePointBuffer();
         InitializeGazePointCloudSprites();
 
@@ -133,17 +130,14 @@ public class GazePlotter : MonoBehaviour
 
 	//Me do
 	private void spawnWave(){
-		
-		print (Time.time - lastTime);
-		lastTime = Time.time;
 		//Transform transform = GameObject.FindGameObjectWithTag ("GazePoint").transform;
-		GameObject newWave = Instantiate (wave, transform.position, Quaternion.identity) as GameObject;
+		Instantiate (wave, transform.position, Quaternion.identity);
 	}
 
 	private void spawnWaveAtTap(){
 		Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		position.z = 0;
-	    GameObject clickWave = Instantiate (wave, position, Quaternion.identity) as GameObject;
+	    Instantiate (wave, position, Quaternion.identity);
 	}
 
     private void InitializeGazePointCloudSprites()
