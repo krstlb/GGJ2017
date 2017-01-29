@@ -5,29 +5,17 @@ using UnityEngine.UI;
 
 public class KillChildren : MonoBehaviour {
 
+	private SoundController soundController;
+
 	private GameObject sliderObject;
 	public GameObject particleEffect;
 	private GameObject cheerGameObject;
 	private Slider slider;
 	public float maxLifetime;
-	AudioSource audioSource;
-	AudioSource cheerAudioSource;
-	AudioClip[] audioClips;
-	AudioClip audioClipCheer;
 	private const float SLIDER_VALUE = 0.05f;
 
 	void Start(){
-		audioSource = GetComponent<AudioSource> ();
-		audioClips = new AudioClip[] {
-			(AudioClip)Resources.Load ("Sound/dying1"),
-			(AudioClip)Resources.Load ("Sound/dying2"),
-			(AudioClip)Resources.Load ("Sound/dying3"),
-			(AudioClip)Resources.Load ("Sound/dying4"),
-			(AudioClip)Resources.Load ("Sound/dying5"),
-			(AudioClip)Resources.Load ("Sound/dying6"),
-			(AudioClip)Resources.Load ("Sound/dying7")
-		};
-		audioClipCheer = (AudioClip)Resources.Load ("Sound/cheer");
+		soundController = GameObject.FindGameObjectWithTag ("SoundController").GetComponent<SoundController> ();
 
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		if(sliderObject!=null){
@@ -42,9 +30,8 @@ public class KillChildren : MonoBehaviour {
 		yield return new WaitForSeconds (secondsWait);
 		Instantiate (particleEffect, gameObject.transform.position, Quaternion.identity);
 
-		audioSource.clip = audioClips [Random.Range (0, audioClips.Length)];
-		audioSource.Stop ();
-		audioSource.Play ();
+		//Play victim dying sound
+		soundController.PlayOneShot(soundController.victimDeathSounds);
 
 		if (slider!=null) {
 			slider.value -= SLIDER_VALUE;
@@ -60,14 +47,7 @@ public class KillChildren : MonoBehaviour {
 		// cheering
 		} else if ((other.tag == "SafeZone" && this.tag == "Child") || 
 			(other.tag == "DeadZone" && this.tag == "Turtle")) {
-
-			cheerGameObject = new GameObject ("CheerGameObject");
-			cheerGameObject.AddComponent<AudioSource> ();
-			cheerAudioSource = cheerGameObject.GetComponent<AudioSource>();
-			cheerAudioSource.clip = audioClipCheer;
-			cheerAudioSource.Stop ();
-			cheerAudioSource.Play ();
-
+			soundController.PlayOneShot (soundController.cheer);
 			Destroy (this.gameObject);
 			if (slider != null) {
 				slider.value += SLIDER_VALUE;

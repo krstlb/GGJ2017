@@ -10,7 +10,6 @@ public class PlayAudioRandomly : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audioSource = GetComponent<AudioSource> ();
-	
 	}
 	
 	// Update is called once per frame
@@ -18,8 +17,6 @@ public class PlayAudioRandomly : MonoBehaviour {
 		if (timeCounter > randomTime) {
 			randomTime = Random.Range (8.0f, 12.0f);
 			timeCounter = 0.0f;
-			audioSource.Stop ();
-			audioSource.Play ();
 		} 
 
 		timeCounter += Time.deltaTime;

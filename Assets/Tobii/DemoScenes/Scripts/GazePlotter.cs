@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 /// toggle is on, with a single bubble sprite with smoother movements.
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
-public class GazePlotter : MonoBehaviour, AudioProcessor.AudioCallbacks
+public class GazePlotter : MonoBehaviour
 {
     [Range(3.0f, 15.0f), Tooltip("Number of gaze points in point cloud.")]
     public int PointCloudSize = 10;
@@ -68,17 +68,13 @@ public class GazePlotter : MonoBehaviour, AudioProcessor.AudioCallbacks
 		/**
 		 * end of me do
 		*/
-
-
-		AudioProcessor processor = FindObjectOfType<AudioProcessor>();
-		processor.addAudioCallback(this);
     }
 
 	void ToggleEyeTracking() {
 		if (eyeTracking) {
-			//InvokeRepeating (
-			//	"spawnWave", 1.2f, 0.8f
-			//);
+			InvokeRepeating (
+				"spawnWave", 1.2f, 0.8f
+			);
 		} 
 		if(!eyeTracking) {
 			_gazeBubbleRenderer.enabled = false;
