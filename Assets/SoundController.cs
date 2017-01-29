@@ -5,6 +5,8 @@ using UnityEngine;
 public class SoundController : MonoBehaviour {
 
 	private GameObject musicController;
+	public float defaultMusicVolume;
+	public float defaultSFXVolume;
 	public AudioClip cheer;
 	public AudioClip splash;
 	public AudioClip seagulls;
@@ -14,7 +16,6 @@ public class SoundController : MonoBehaviour {
 	public AudioClip[] victimDeathSounds;
 
 	private AudioSource audioSource;
-
 
 	//Random Wave Sound
 	public float timeUntilNextWave = 10.0f;
@@ -45,7 +46,7 @@ public class SoundController : MonoBehaviour {
 	public void PlayMusic(AudioClip audio){
 		AudioSource musicAudioSource = transform.GetComponentInChildren<AudioSource> ();
 		musicAudioSource.clip = audio;
-		musicAudioSource.volume = 0.1f;
+		musicAudioSource.volume = defaultMusicVolume;
 		musicAudioSource.Play ();
 	}
 

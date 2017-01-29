@@ -16,7 +16,6 @@ public class KillChildren : MonoBehaviour {
 
 	void Start(){
 		soundController = GameObject.FindGameObjectWithTag ("SoundController").GetComponent<SoundController> ();
-
 		sliderObject = GameObject.FindGameObjectWithTag ("Slider");
 		if(sliderObject!=null){
 			slider = sliderObject.GetComponent<Slider> ();
